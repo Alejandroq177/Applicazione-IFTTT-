@@ -5,8 +5,6 @@
 package taskautomation.rule;
 
 import java.io.Serializable;
-import java.time.LocalTime;
-import java.time.temporal.TemporalAmount;
 import taskautomation.trigger.Trigger;
 import taskautomation.azioni.Action;
 
@@ -23,12 +21,20 @@ public class RuleSingleExecute extends Rule implements Serializable{
         alreadyFired = false;
     }
 
+    public boolean isAlreadyFired() {
+        return alreadyFired;
+    }
+
+    public void setAlreadyFired(boolean alreadyFired) {
+        this.alreadyFired = alreadyFired;
+    }
+
     @Override
     public void checkRule() {
-        if (this.isActive() && !alreadyFired) {
+        if (this.isActive() && !this.isAlreadyFired()) {
             if (this.verifyTrigger()) {
                 this.executeAction();
-                this.alreadyFired = true;
+                this.setAlreadyFired(true);
             }
         } 
     }

@@ -53,7 +53,7 @@ public class RuleWithSleep extends Rule implements Serializable{
     @Override
     public void checkRule() {
         if (this.isActive()) {
-            if (alreadyFired) {
+            if (this.isAlreadyFired()) {
                 if ((LocalTime.now().isAfter(this.getLastFired().plus(sleepingPeriod)) && this.verifyTrigger())) {
                     this.executeAction();
                     this.lastFired = LocalTime.now();
