@@ -54,15 +54,15 @@ public class RuleWithSleep extends Rule implements Serializable{
     public void checkRule() {
         if (this.isActive()) {
             if (alreadyFired) {
-                if ((LocalTime.now().isAfter(this.lastFired.plus(sleepingPeriod)) && this.verifyTrigger())) {
+                if ((LocalTime.now().isAfter(this.getLastFired().plus(sleepingPeriod)) && this.verifyTrigger())) {
                     this.executeAction();
                     this.lastFired = LocalTime.now();
                 }
             } else {
                 if (this.verifyTrigger()) {
                     this.executeAction();
-                    this.lastFired = LocalTime.now();
-                    this.alreadyFired = true;
+                    this.setLastFired( LocalTime.now());
+                    this.setAlreadyFired(true);
                 }
             }
         }
